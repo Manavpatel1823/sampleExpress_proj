@@ -1,23 +1,18 @@
-# Use an official Node.js runtime as the base image
+# Use Node.js base image
 FROM node:18
 
-# Set the working directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy package.json and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application
+# Copy the rest of the app files
 COPY . .
 
-# Set environment variable for Cloud Run (default is 8080)
-ENV PORT=8080
-
-# Expose the port Cloud Run listens on
+# Expose port 8080
 EXPOSE 8080
 
-# Start the application
-CMD ["node", "app.js"]
+# Start the application using bin/www
+CMD ["node", "bin/www"]
